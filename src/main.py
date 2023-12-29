@@ -1,26 +1,24 @@
-import os
-import numpy as np
-import cv2
-import torch
+import time
+import threading
+from emotiondetection.emotionDetection import EmotionDetector
+from chatbot.complimentBot import ComplimentBot
 
 class ComplimentAI:
   def __init__(self):
-    pass
+    self.emotion_detector = EmotionDetector()
+    self.compliment_bot = ComplimentBot()
+    
+  def run(self):
+    emotion_thread = threading.Thread(target=self.emotion_detector.emotionDetector) 
+    emotion_thread.start()
 
-
-
-
+    compliment_thread = threading.Thread(target=lambda: self.compliment_bot.complimentUser(self.emotion_detector))
+    compliment_thread.start()
 
 
 def main():
-  # component paths 
-  cnn_path = os.path.join("model/model.pt")
-  face_rec_path = os.path.join("facerecognition/haarcascade_frontalface_default.xml")
-  chatbot_path = os.path.join("chatbot/complimentbot.py") 
-
-  compAI = ComplimentAI()
-
-  pass
+  compliment_ai = ComplimentAI()
+  compliment_ai.run()
 
 
 if __name__ == "__main__":
