@@ -18,7 +18,7 @@ Compliment AI detects facial emotions in real-time through a webcam and generate
 
 ## Installation
 1. Clone the repository to your local machine.
-2. Install the necessary dependencies by running `pip install -r requirements.txt`.
+2. Install the necessary dependencies by running `pip3 install -r requirements.txt`.
 3. Set your OpenAI API key in your environment: `export OPENAI_API_KEY="your_key_here"`.
 
 ## Usage
