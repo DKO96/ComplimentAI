@@ -51,55 +51,46 @@ class CNN(nn.Module):
 
 
   def forward(self, x):
-    # print(f"x0: {x.size()}")
     x = self.conv1(x)
     x = F.relu(x)
     x = self.bn1(x)
-    # print(f"x1: {x.size()}")
 
     x = self.conv2(x)
     x = F.relu(x)
     x = self.bn1(x)
     x = self.mp(x)
     x = self.do_cv(x)
-    # print(f"x2: {x.size()}")
 
     x = self.conv3(x)
     x = F.relu(x)
     x = self.bn2(x)
     x = self.do_cv(x)
-    # print(f"x3: {x.size()}")
 
     x = self.conv4(x)
     x = F.relu(x)
     x = self.bn2(x)
     x = self.mp(x)
     x = self.do_cv(x)
-    # print(f"x4: {x.size()}")
 
     x = self.conv5(x)
     x = F.relu(x)
     x = self.bn3(x)
-    # print(f"x5: {x.size()}")
 
     x = self.conv6(x)
     x = F.relu(x)
     x = self.bn3(x)
     x = self.mp(x)
     x = self.do_cv(x)
-    # print(f"x6: {x.size()}")
 
     x = self.conv7(x)
     x = F.relu(x)
     x = self.bn4(x)
-    # print(f"x7: {x.size()}")
 
     x = self.conv8(x)
     x = F.relu(x)
     x = self.bn4(x)
     x = self.mp(x)
     x = self.do_cv(x)
-    # print(f"x8: {x.size()}")
 
     x = x.view(-1, 256 * 3 * 3)
     x = self.fc1(x)

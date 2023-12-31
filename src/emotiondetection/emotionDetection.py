@@ -63,7 +63,6 @@ class EmotionDetector:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
         cv2.putText(frame, self.emotion, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
 
-      # cv2.imshow('Emotion Recognition', frame)
       self.frame_emotion.put((frame, self.emotion))
     
       if cv2.waitKey(1) & 0xFF == ord('q'):
