@@ -6,7 +6,7 @@ import torchvision.transforms as transforms
 from .emotionCNN import CNN
 
 class EmotionDetector:
-  def __init__(self):
+  def __init__(self, frame_emotion, stop_flag):
     # directory path
     directory = pathlib.Path(__file__).parent
     model_path = directory / "model.pt"
@@ -24,13 +24,15 @@ class EmotionDetector:
 
     # face detection setup
     self.face_cascade = cv2.CascadeClassifier(str(haar_path))
-    self.cam_res = (1920, 1080)
+    cam_res = (1920, 1080)
     self.cap = cv2.VideoCapture(0)
-    self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.cam_res[0])
-    self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.cam_res[1])
+    self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, cam_res[0])
+    self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, cam_res[1])
 
     self.emotion = ""
-    self.stop_flag = False
+    self.frame_emotion = frame_emotion
+    self.stop_flag = stop_flag
+
 
   def preprocess(self, image):
     transform = transforms.Compose([transforms.ToTensor()])
@@ -40,7 +42,7 @@ class EmotionDetector:
   def emotionDetector(self):
     while True:
       ret, frame = self.cap.read()
-      if not ret:
+      if not ret or self.stop_flag.is_set():
         break
 
       gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -61,7 +63,8 @@ class EmotionDetector:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
         cv2.putText(frame, self.emotion, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
 
-      cv2.imshow('Emotion Recognition', frame)
+      # cv2.imshow('Emotion Recognition', frame)
+      self.frame_emotion.put((frame, self.emotion))
     
       if cv2.waitKey(1) & 0xFF == ord('q'):
         self.stop_flag = True
@@ -70,10 +73,6 @@ class EmotionDetector:
     self.cap.release()
     cv2.destroyAllWindows()
 
-
-if __name__ == "__main__":
-  ed = EmotionDetector()
-  ed.emotionDetector()
 
 
 
