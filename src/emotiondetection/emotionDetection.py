@@ -3,7 +3,7 @@ import cv2
 import torch
 import torchvision.transforms as transforms
 
-from .emotionCNN import CNN
+from .emotionCNN import ResNet50
 
 class EmotionDetector:
   def __init__(self, frame_emotion, stop_flag):
@@ -14,12 +14,12 @@ class EmotionDetector:
 
     # initialize classifier
     self.N_CLASSES = 5
-    self.IMAGE_SIZE = 48
+    self.IMAGE_SIZE = 224
     self.label_map = {0:"angry", 1:"happy", 2:"neutral", 3:"sad", 4:"surprised"}
 
     # model setup
     self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    self.model = CNN(self.N_CLASSES).to(self.device)
+    self.model = ResNet50(in_channels=1, num_classes=self.N_CLASSES).to(self.device)
     self.model.load_state_dict(torch.load(model_path))
 
     # face detection setup
