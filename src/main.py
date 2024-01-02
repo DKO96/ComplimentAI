@@ -34,7 +34,7 @@ def main():
     [sg.Column([[sg.Image(filename="", key="-IMAGE-")]], justification='center', k='-COLUMN-')],
     [sg.Column([[sg.Text(key="-EMOTION-")]], justification='center', k='-COLUMN-')],
     [sg.Text('', size=(1, 1))],
-    [sg.Column([[sg.Text(key="-COMPLIMENT-", size=(width, 6), justification='center', font=("Helvetica", 14))]],
+    [sg.Column([[sg.Text(key="-COMPLIMENT-", size=(width, 7), justification='center', font=("Helvetica", 14))]],
                 justification='center')],
     [sg.Text('', size=(1, 1))],
     [sg.Column([[sg.Button('Generate')]], justification='center')],

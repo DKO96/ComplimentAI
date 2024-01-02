@@ -1,5 +1,7 @@
 compliment-env/
-src/gui_test.py
 src/chatbot/temp.txt
 src/chatbot/tts-test.py
 src/chatbot/tts_test.mp3
+src/chatbot/config2.json
+src/emotiondetection/resnet_model.pt
+

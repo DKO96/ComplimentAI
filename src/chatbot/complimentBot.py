@@ -44,7 +44,7 @@ class ComplimentBot():
               {"role": "system", "content": " ".join(self.config["assistant"][emotion])},
               {"role": "user", "content": " ".join(self.config["user"][emotion])}
             ],
-            max_tokens=85,
+            max_tokens=100,
             temperature=1.0,
           )
           reply = response.choices[0].message.content
