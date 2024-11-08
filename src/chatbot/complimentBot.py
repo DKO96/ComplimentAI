@@ -6,19 +6,13 @@ import pathlib
 import json
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 from pygame import mixer
-from gtts import gTTS
 
 class ComplimentBot():
   def __init__(self, compliment, generate, stop_flag):
     # openai token
     self.client = openai.OpenAI()
 
-    # speech output path 
-    self.speech_path = pathlib.Path(__file__).parent.parent / "reply.mp3"
     self.compliment = compliment
-
-    # initialize tts
-    mixer.init()
 
     # load assistant config 
     config_path = pathlib.Path(__file__).parent / "config.json"
@@ -49,14 +43,6 @@ class ComplimentBot():
           )
           reply = response.choices[0].message.content
           self.compliment.put(reply)
-
-        audio = gTTS(text=reply, lang='en', tld='ca', slow=False)
-        audio.save("reply.mp3")
-
-        mixer.music.load(self.speech_path)
-        mixer.music.play()
-        while mixer.music.get_busy():
-          time.sleep(0.1)
 
         self.generate.clear()
 
