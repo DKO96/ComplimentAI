@@ -1,4 +1,5 @@
 compliment-env/
+.compliment/
 src/chatbot/temp.txt
 src/chatbot/tts-test.py
 src/chatbot/tts_test.mp3
